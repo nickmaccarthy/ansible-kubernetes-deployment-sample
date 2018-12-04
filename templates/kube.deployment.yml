@@ -32,7 +32,7 @@ spec:
         app: {{app.name}}
     spec:
       containers:
-        - image: {{app.container_image}}
+        - image: {{container_image}}
           name: {{app.name}}
       {% if registry_crentials %}
       imagePullSecrets:
