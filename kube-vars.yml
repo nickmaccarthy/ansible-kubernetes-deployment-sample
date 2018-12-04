@@ -1,0 +1,17 @@
+
+deployment_enabled: true 
+
+docker_registry: kiab.local:5000
+
+app:
+  # Name our app or service
+  name: <app_name>
+  # Name of our container image within our registry 
+  container_name: <container_name>
+  # Tag of our image within our registry 
+  tag: <container_tag>
+  container_image: "{{docker_registry}}/{{container_name}}:{{container_tag}}"
+  # Port exposed on kubernetes worker
+  nodePort: 30180
+  # Port exposed to the pod - note that nodePort is typically forwarded to this port
+  port: 5000

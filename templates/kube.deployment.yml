@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{app.name}}
+  labels:
+    app: {{app.name}}
+spec:
+  type: NodePort
+  ports:
+    - name: http-{{app.name}}
+      protocol: TCP
+      nodePort: {{app.nodePort}}
+      port: {{app.port}}
+  selector:
+    app: {{app.name}}
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{app.name}}
+  labels:
+    app: {{app.name}}
+spec:
+  selector:
+    matchLabels:
+      app: {{app.name}}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{app.name}}
+    spec:
+      containers:
+        - image: {{app.container_image}}
+          name: {{app.name}}
+      {% if registry_crentials %}
+      imagePullSecrets:
+          - name: {{registry_credentials}}
+      {% endif %}

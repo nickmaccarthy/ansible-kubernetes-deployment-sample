@@ -1,0 +1,38 @@
+- hosts:
+    - localhost
+  vars_files:
+    - ./kube-vars.yml 
+  tasks:
+    - include_vars: "vars/{{ ansible_os_family }}.yml"
+
+    - fail:
+        msg: "Please specify an app name and all relevant info in kube-vars.yml to use this" 
+      when: "app.name == '<app_name>'"
+
+    - name: ensure manifest dir exists
+      file:
+        path: "{{manifest_app_dir}}"
+        state: directory
+
+    - name: kubectl get secrets
+      shell: kubectl get secrets
+      register: kube_secrets
+
+    - name: create manifest template for kube deploy 
+      template:
+        src: "{{deployment_file}}"
+        dest: "{{manifest_app_dir}}/{{deployment_file}}"
+      register: deploy_template
+
+    # Applys 
+    - block: 
+        - name: apply kubernetes deployment
+          shell: "kubectl apply -f {{manifest_app_dir}}/{{deployment_file}}"
+      when: "deployment_enabled and deploy_template is changed"
+
+
+    # Removals
+    - block:
+        - name: remove kubernetes deployment
+          shell: "kubectl delete -f {{manifest_app_dir}}/{{deployment_file}}"
+      when: not deployment_enabled
