@@ -1,7 +1,11 @@
-# NodePort Deployment to Kubernetes with Ansible
-The purpose of this repository is to demonstrate how to deploy an app/service to Kubernetes using Ansible.  
+# Kubernetes with Ansible Sample
+The purpose of this repository is to demonstrate how to deploy an app/service to Kubernetes using Ansible which can easily be run locally by a developer or a CI/CD platform such as Jenkins with little modification of the actual deployment code.  This ensures what we develop on mimics how we deploy to production.  
 
-This runs an ansible playbook which created a template file which which in turn calls `kubectl` to deploy to kubernetes.  
+First and formost, this is meant to be boilerplate code; Just enough to get you started if you will.  Its best if you cloned this into your existing app code repository with something like `git clone https://github.com/nickmaccarthy/ansible-kubernetes-deployment-sample.git kubernetes` and then removed the `.git` subdirectory and worked from there.  Please see the `Files` section below for documentation on what each file represents and does.
+
+This runs an ansible playbook which creates a template file on the host where `kubectl` runs from which is what deploys to Kubernetes.  Since we are utilizing Ansible here we can utilize all that Ansible has to offer if we need to make deployments to Kubernetes more streamlined and efficient.
+
+By default, our `kube.deployment.yml` is a basic [NodePort]() deployment in Kubernetes.  This helps emulate how many developers might develop against a docker-compose or a docker image.  This tempalte file can and should be modified to meet your needs for your specific app or service.  Remember this is just sample code, meant to just you going.  All modifications can then live your in app codes SCM going forward. 
 
 ## Files
 * `kube.deployment.playbook.yml` - The main deployment playbook used to deploy to kubernetes
