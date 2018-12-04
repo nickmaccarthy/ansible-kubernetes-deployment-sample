@@ -11,10 +11,10 @@ This runs an ansible playbook which created a template file which which in turn 
 * `templates/kube_deployment.yml` - This is a base template used to create a basic kubernetes deployment and pod.  This can easily be modified to meet your needs for your service 
 
 ## Usage 
-1. Clone this repo into your application code repository. 
-2. Consider renaming the folder to something different, perhaps `kubernetes` 
-3. Modify the `kube-vars.yml` file to meet your needs 
-4. Deploy your your kubernetes cluster 
+1. Clone this repo into your application code repository
+    * `git clone https://github.com/nickmaccarthy/ansible-kubernetes-deployment-sample.git kubernetes`
+2. Modify the `kube-vars.yml` file to meet your needs 
+3. Deploy your your kubernetes cluster 
     * `ansible-playbook kubernetes/kube.deployment.playbook.yml`
 
 Note: If you wanted to backout the deployment running in Kubernetes, simply run this command: `ansible-playbook kubernetes/kube.deployment.playbook.yml --extra-vars '{deployment_enabled: false}'`
