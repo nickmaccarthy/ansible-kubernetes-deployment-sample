@@ -34,7 +34,3 @@ spec:
       containers:
         - image: {{container_image}}
           name: {{app.name}}
-      {% if registry_crentials %}
-      imagePullSecrets:
-          - name: {{registry_credentials}}
-      {% endif %}
