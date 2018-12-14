@@ -1,7 +1,7 @@
 # CICD Deploymet to Kubernetes using Ansible
 The purpose of this repository is to demonstrate how to deploy an app/service to Kubernetes using Ansible which can easily be run locally by a developer or a CI/CD platform such as Jenkins with little modification of the actual deployment code.  This ensures that what we develop locally on mimics how we deploy and run on production.  
 
-First and formost, this is meant to be boilerplate code; Just enough to get you started if you will.  Its best if you cloned this into your existing app code repository with something like `git clone https://github.com/nickmaccarthy/ansible-kubernetes-deployment-sample.git kubernetes && rm -rf kubernetes/.git`. Please see the `Files` section below for documentation on what each file represents and does.
+First and formost, this is meant to be boilerplate code; Just enough to get you started if you will.  Its best if you cloned this into your existing app code repository with something like `git clone https://github.com/nickmaccarthy/ansible-kubernetes-deployment-sample.git _kubernetes && rm -rf _kubernetes/.git`. Please see the `Files` section below for documentation on what each file represents and does.
 
 Here we run an Ansible playbook which creates a template file on the host where `kubectl` runs from, which we then run a `kubectl apply` which is what actually deploys to Kubernetes.  Since we are utilizing Ansible here we can utilize all that Ansible has to offer if we need to make deployments to Kubernetes more streamlined and efficient.
 
@@ -16,12 +16,12 @@ By default, our `kube.deployment.yml` is a basic [NodePort](https://kubernetes.i
 
 ## Usage 
 1. Clone this repo into your application code repository
-    * `git clone https://github.com/nickmaccarthy/ansible-kubernetes-deployment-sample.git kubernetes && rm -rf kubernetes/.git`
+    * `git clone https://github.com/nickmaccarthy/ansible-kubernetes-deployment-sample.git _kubernetes && rm -rf _kubernetes/.git`
 2. Modify the `kube-vars.yml` file to meet your needs 
 3. Deploy your your kubernetes cluster 
-    * `ansible-playbook kubernetes/kube.deployment.playbook.yml`
+    * `ansible-playbook _kubernetes/kube.deployment.playbook.yml`
 
-Note: If you wanted to backout the deployment running in Kubernetes, simply run this command: `ansible-playbook kubernetes/kube.deployment.playbook.yml --extra-vars '{deployment_enabled: false}'`
+Note: If you wanted to backout the deployment running in Kubernetes, simply run this command: `ansible-playbook _kubernetes/kube.deployment.playbook.yml --extra-vars '{deployment_enabled: false}'`
 
 ## Protip's
 You can automate most of this with a Makefile.  Check out this Repo for more information
